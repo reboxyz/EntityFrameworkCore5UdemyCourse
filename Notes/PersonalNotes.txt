@@ -1,0 +1,57 @@
+[ FreeCourseWeb.com ] Udemy - Entity Framework Core - The Complete Guide (.NET Core 5)
+Note! Microsoft.NETCore.App 5.0.0-preview.7.20364.11
+
+
+1  - 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+2 - 1, 2, 3, 4, 5, 6, 7, 8, 9
+3 - 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+4 - 1, 2, 3, 4, 5, 6, 7, 8, 9
+5 - 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+6 - 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+7 - 1, 2, 3, 4, 5, 6
+8 - 1, 2, 3, 4, 5, 6, 7, 8
+END
+
+
+
+"DefaultConnection": "Server=localhost; Database=WizLib; User Id=sa; Pwd=reallyStrongPwd123; MultipleActiveResultSets=true;"
+
+docker container ls -a
+docker container start <CONTAINER_ID>
+
+Then Azure Data Studio is used in connecting to MSSQL Server
+
+
+dotnet cli commands:
+dotnet new sln -n WizLib
+dotnet new mvc -n WizLib
+dotnet new classlib -n WizLib_DataAccess
+dotnet new classlib -n WizLib_Model
+
+dotnet sln add WizLib/
+dotnet sln add WizLib_DataAccess/
+dotnet sln add WizLib_Model/
+
+cd WizLib_DataAccess/
+dotnet add reference ../WizLib_Model
+cd WizLib
+dotnet add reference ../WizLib_Model
+dotnet add reference ../WizLib_DataAccess/
+
+
+dotnet ef migration commands:
+dotnet add package Microsoft.EntityFrameworkCore --version 5.0.0-preview.7.20365.15
+dotnet ef migrations add "CategoryAdded" -p WizLib_DataAccess/ -s WizLib/
+dotnet ef migrations add "GenreAdded" -p WizLib_DataAccess/ -s WizLib/ 
+dotnet ef migrations add "AddDisplayOrderToGenreTable" -p WizLib_DataAccess/ -s WizLib/
+dotnet ef migrations add "ChangeNameFromNameToGenreNameToGenreTable" -p WizLib_DataAccess/ -s WizLib/
+dotnet ef migrations add "RemoveDisplayOrderToGenreTable" -p WizLib_DataAccess/ -s WizLib/
+dotnet ef migrations add "BookAdded" -p WizLib_DataAccess/ -s WizLib/
+
+To execute/push migration to Database
+dotnet ef database update -p WizLib_DataAccess/ -s WizLib/
+dotnet ef database update <MigrationNameHere>  -p WizLib_DataAccess/ -s WizLib/
+
+
+
+
